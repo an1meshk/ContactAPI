@@ -1,6 +1,6 @@
-package com.interview.contactapi.controller;
+package com.animesh.contactapi.controller;
 
-import com.interview.contactapi.vo.Contact;
+import com.animesh.contactapi.vo.Contact;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

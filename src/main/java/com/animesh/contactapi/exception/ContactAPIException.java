@@ -1,4 +1,4 @@
-package com.interview.contactapi.exception;
+package com.animesh.contactapi.exception;
 
 /**
  * Created by Animesh Kumar on 14-04-2018.

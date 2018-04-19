@@ -1,4 +1,4 @@
-package com.interview.contactapi.repo;
+package com.animesh.contactapi.repo;
 
 /**
  * Created by Animesh Kumar on 14-04-2018.

@@ -1,24 +1,25 @@
-package com.interview.contactapi.service;
+package com.animesh.contactapi.repo;
 
-import com.interview.contactapi.exception.ContactAPIException;
-import com.interview.contactapi.vo.Contact;
+import com.animesh.contactapi.exception.ContactAPIException;
+import com.animesh.contactapi.vo.Contact;
 
 import java.util.Set;
 
 /**
- * Created by Animesh Kumar on 13-04-2018.
+ * Created by Animesh Kumar on 14-04-2018.
  *
- * Business layer interface defining the contract for the implementing
+ * Repository interface defining the contract for the implementing
  * classes. It declares the methods need to perform Contact API operations.
  */
-public interface ContactService {
-
+public interface ContactRepo {
     /**
      * Creates contact record in the database, throws ContactAPIException
+     * for any exception occurred.
      * @param contact
+     * @return result
      * @throws ContactAPIException
      */
-    void createContact(Contact contact) throws ContactAPIException;
+    int createContact(Contact contact) throws ContactAPIException;
 
     /**
      * Retrieve a contact when contact name of existing record is passed, it returns
@@ -41,9 +42,10 @@ public interface ContactService {
     /**
      * Deletes contact when contact name of existing record is passed
      * @param contactName
+     * @return result
      * @throws ContactAPIException
      */
-    void deleteContact(String contactName) throws ContactAPIException;
+    int deleteContact(String contactName) throws ContactAPIException;
 
     /**
      * Search for a record by email or phone number or work phone.
@@ -58,9 +60,8 @@ public interface ContactService {
      * Retrieves all records with the same state or city.
      * @param contactVal
      * @param identifier
-     * @return result
+     * @return Set<Contact>
      * @throws ContactAPIException
      */
     Set<Contact> retrieveAllContact(String contactVal, String identifier) throws ContactAPIException;
-
 }

@@ -1,8 +1,8 @@
-package com.interview.contactapi.service;
+package com.animesh.contactapi.service;
 
-import com.interview.contactapi.exception.ContactAPIException;
-import com.interview.contactapi.repo.ContactRepo;
-import com.interview.contactapi.vo.Contact;
+import com.animesh.contactapi.exception.ContactAPIException;
+import com.animesh.contactapi.repo.ContactRepo;
+import com.animesh.contactapi.vo.Contact;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

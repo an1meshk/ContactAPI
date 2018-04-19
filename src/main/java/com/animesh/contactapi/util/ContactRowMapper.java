@@ -1,7 +1,7 @@
-package com.interview.contactapi.util;
+package com.animesh.contactapi.util;
 
-import com.interview.contactapi.vo.Address;
-import com.interview.contactapi.vo.Contact;
+import com.animesh.contactapi.vo.Address;
+import com.animesh.contactapi.vo.Contact;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

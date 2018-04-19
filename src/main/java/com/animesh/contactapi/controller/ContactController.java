@@ -1,8 +1,8 @@
-package com.interview.contactapi.controller;
+package com.animesh.contactapi.controller;
 
-import com.interview.contactapi.exception.ContactAPIException;
-import com.interview.contactapi.service.ContactService;
-import com.interview.contactapi.vo.Contact;
+import com.animesh.contactapi.exception.ContactAPIException;
+import com.animesh.contactapi.service.ContactService;
+import com.animesh.contactapi.vo.Contact;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
