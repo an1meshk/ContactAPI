@@ -1,6 +1,8 @@
 # Contact API
 
-This is a Gradle project and Intellij IDEA was used for the development purpose. This project is a Spring Boot application having different endpoints to perform following operations:
+This is a Gradle project and Intellij IDEA was used for the development purpose. 
+
+This project is a Spring Boot application having different endpoints to perform following operations:
 1. Create a contact record
 2. Retrieve a contact record
 3. Update a contact record
@@ -22,15 +24,12 @@ Some of important classes description
 7. ContactRepoHelper contains all SQL queries
 8. Contact and Address are the domain object classes
 
-*Application Details*:
-1. Context root - /contact
-2. Access over - http://localhost:8080
-
 ## Deployment and Testing
 ### Deployment
-After unzipping the __ContactAPIProject.zip__ file run the below command:
+Run the below command:
 
-_java -jar contactapi-1.0.0-RC.war_
+* _java -jar contactapi-1.0.0-RC.war_
+* From IDE, run the main() method of the ContactApiApplication class
 
 It will start the application on localhost at 8080 port.
 
