@@ -1,0 +1,65 @@
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+buildscript {
+	ext {
+		springBootVersion = '1.4.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+
+group = 'com.animesh'
+version = '1.0.0-RC'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+ext{
+    springVersion = '4.3.3.RELEASE'
+    springBootVersion = '1.4.1.RELEASE'
+    logbackVersion = '1.1.7'
+    slf4jVersion = '1.7.21'
+    swaggerVersion = '2.8.0'
+    h2Version = '1.4.192'
+}
+dependencies {
+
+    //logging libs
+    compile("org.slf4j:slf4j-api:$slf4jVersion")
+    compile("org.slf4j:jcl-over-slf4j:$slf4jVersion")
+    compile("ch.qos.logback:logback-classic:$logbackVersion")
+    compile("org.slf4j:log4j-over-slf4j:$slf4jVersion")
+
+    //in memory test database
+    compile("com.h2database:h2:$h2Version")
+
+    //Spring JDBC
+    compile("org.springframework:spring-jdbc:$springVersion")
+
+	//swagger
+	compile("io.springfox:springfox-swagger2:$swaggerVersion")
+	compile("io.springfox:springfox-swagger-ui:$swaggerVersion")
+
+    //apache libs
+    compile("org.apache.commons:commons-io:1.3.2")
+    compile("commons-fileupload:commons-fileupload:1.2.1")
+
+    compile("org.hibernate:hibernate-validator:5.1.3.Final")
+
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
+	compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+	testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+}
+
+bootRun {
+    addResources = true
+}
