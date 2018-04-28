@@ -22,7 +22,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
 public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     /**
-     * Registers "com.interview.contactapi" package for
+     * Registers "com.animesh.contactapi" package for
      * scanning endpoint to generate endpoint documentation
      * as per the swagger api annotations.
      * @return Docket
@@ -31,7 +31,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     public Docket contactApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.interview.contactapi"))
+                .apis(RequestHandlerSelectors.basePackage("com.animesh.contactapi"))
                 .paths(regex("/contact.*"))
                 .build();
     }

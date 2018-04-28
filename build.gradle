@@ -15,7 +15,7 @@ buildscript {
 }
 
 
-group = 'com.interview'
+group = 'com.animesh'
 version = '1.0.0-RC'
 sourceCompatibility = 1.8
 

@@ -63,7 +63,6 @@ public class ContactControllerTest {
 
         Contact contact = restTemplate.getForObject("/contact", Contact.class,"John");
 
-        //assertTrue(contact != null);
     }
 
     @Test
