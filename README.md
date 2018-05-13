@@ -1,5 +1,4 @@
 # Contact API
-
 This is a Gradle project and Intellij IDEA was used for the development purpose. 
 
 This project is a Spring Boot application having different endpoints to perform following operations:
