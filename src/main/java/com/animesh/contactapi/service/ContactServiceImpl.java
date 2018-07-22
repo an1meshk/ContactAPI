@@ -22,8 +22,12 @@ public class ContactServiceImpl implements ContactService {
 
     private Logger logger = LoggerFactory.getLogger(ContactServiceImpl.class);
 
-    @Autowired
     private ContactRepo contactRepo;
+
+    @Autowired
+    public ContactServiceImpl(ContactRepo contactRepo) {
+        this.contactRepo = contactRepo;
+    }
 
     /**
      * Creates contact record in the database, throws ContactAPIException
@@ -46,7 +50,7 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public Set<Contact> retrieveContact(String contactName) throws ContactAPIException {
         Set<Contact> contacts = contactRepo.retrieveContact(contactName);
-        if(contacts.size() ==0) throw new ContactAPIException("No data found");
+        if (contacts == null || contacts.size() == 0) throw new ContactAPIException("No data found");
         return contacts;
     }
 
@@ -104,8 +108,8 @@ public class ContactServiceImpl implements ContactService {
      * @throws ContactAPIException
      */
     @Override
-    public Set<Contact> retrieveAllContact(String contactVal, String identifier) throws ContactAPIException {
-        Set<Contact> contacts = contactRepo.retrieveAllContact(contactVal, identifier);
+    public Set<Contact> retrieveAllContacts(String contactVal, String identifier) throws ContactAPIException {
+        Set<Contact> contacts = contactRepo.retrieveAllContacts(contactVal, identifier);
         logger.info("no. of record found: "+ contacts.size());
         if(contacts.size() ==0) throw new ContactAPIException("No data found");
         return contacts;

@@ -165,7 +165,7 @@ public class ContactController {
     public Set<Contact> retrieveAllContact(@PathVariable("$contactVal") String contactVal,
                                            @PathVariable("$id") String identifier) throws ContactAPIException{
         if(contactVal==null || identifier==null) throw new ContactAPIException("search parameter/identifier cannot be null");
-        return contactService.retrieveAllContact(contactVal, identifier);
+        return contactService.retrieveAllContacts(contactVal, identifier);
     }
 
 

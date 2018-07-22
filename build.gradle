@@ -16,7 +16,7 @@ buildscript {
 
 
 group = 'com.animesh'
-version = '1.0.0-RC'
+version = '1.1.0-RC'
 sourceCompatibility = 1.8
 
 repositories {
@@ -30,6 +30,7 @@ ext{
     slf4jVersion = '1.7.21'
     swaggerVersion = '2.8.0'
     h2Version = '1.4.192'
+    mockitoVersion = '2.7.22'
 }
 dependencies {
 
@@ -58,6 +59,9 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
 	compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
 	testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+    testCompile ("org.mockito:mockito-core:$mockitoVersion")
+    testCompile ("junit:junit:4.12")
+    testCompile ("org.hamcrest:hamcrest-all:1.3")
 }
 
 bootRun {

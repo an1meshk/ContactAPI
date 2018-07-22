@@ -63,5 +63,5 @@ public interface ContactRepo {
      * @return Set<Contact>
      * @throws ContactAPIException
      */
-    Set<Contact> retrieveAllContact(String contactVal, String identifier) throws ContactAPIException;
+    Set<Contact> retrieveAllContacts(String contactVal, String identifier) throws ContactAPIException;
 }

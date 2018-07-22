@@ -144,7 +144,7 @@ public class ContactRepoImpl implements ContactRepo, ContactRepoHelper {
      * @throws ContactAPIException
      */
     @Override
-    public Set<Contact> retrieveAllContact(String contactVal, String identifier) throws ContactAPIException{
+    public Set<Contact> retrieveAllContacts(String contactVal, String identifier) throws ContactAPIException {
         String SELECT_ALL = SELECT_ALL_STATE;
 
         if(identifier.equalsIgnoreCase("city")){
