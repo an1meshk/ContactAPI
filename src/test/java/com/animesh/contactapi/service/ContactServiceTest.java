@@ -2,24 +2,22 @@ package com.animesh.contactapi.service;
 
 import com.animesh.contactapi.exception.ContactAPIException;
 import com.animesh.contactapi.repo.ContactRepo;
-import com.animesh.contactapi.vo.Address;
 import com.animesh.contactapi.vo.Contact;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.mockito.MockSettings;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.stubbing.Stubber;
-import org.mockito.verification.VerificationMode;
-import org.mockito.verification.VerificationStrategy;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.animesh.contactapi.util.ContactStub.*;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by Animesh Kumar on 21-07-2018.
@@ -27,19 +25,11 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class ContactServiceTest {
 
-    private final static int ONE = 1;
-    private final static String CONTACT_NAME = "john";
-    private final static Contact MOCK_CONTACT = createContactStub();
-    private final static Set<Contact> MOCK_CONTACT_SET = new HashSet<>();
-    private static final int ZERO = 0;
-
-    static {
-        MOCK_CONTACT_SET.add(createContactStub());
-    }
-
     //@Mock
     private static ContactRepo mockRepo;
     private static ContactService contactService;
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void setup() {
@@ -52,13 +42,22 @@ public class ContactServiceTest {
        */
     }
 
-    @Test(expected = ContactAPIException.class)
+    @Test
     public void retrieveAllContactsFailNomatchingDataFound() throws ContactAPIException {
         String contactVal = "john@google.com";
         String identifier = "email";
-        when(mockRepo.retrieveAllContacts(contactVal, identifier)).thenReturn(new HashSet<>());
 
-        Set<Contact> contacts = contactService.retrieveAllContacts(contactVal, identifier);
+        thrown.expect(ContactAPIException.class);
+        thrown.expectMessage("No data found");
+
+        when(mockRepo.retrieveAllContacts(Mockito.anyString(), Mockito.anyString())).thenReturn(new HashSet<>());
+
+        try {
+            Set<Contact> contacts = contactService.retrieveAllContacts(contactVal, identifier);
+        } finally {
+            Mockito.verify(mockRepo).retrieveAllContacts(Mockito.anyString(), Mockito.anyString());
+        }
+
     }
 
     @Test
@@ -80,7 +79,11 @@ public class ContactServiceTest {
         String identifier = "email";
         when(mockRepo.searchById(contactVal, identifier)).thenReturn(new HashSet<>());
 
-        Set<Contact> contacts = contactService.searchById(contactVal, identifier);
+        try {
+            Set<Contact> contacts = contactService.searchById(contactVal, identifier);
+        } finally {
+            Mockito.verify(mockRepo).searchById(contactVal, identifier);
+        }
     }
 
     @Test
@@ -97,33 +100,45 @@ public class ContactServiceTest {
     }
 
     @Test(expected = ContactAPIException.class)
-    public void deleteContactThrowExceptionForNullValue() throws ContactAPIException {
-        when(mockRepo.createContact(MOCK_CONTACT)).thenThrow(ContactAPIException.class);
+    public void deleteContactThrowExceptionForNoDeletedRecord() throws ContactAPIException {
+        when(mockRepo.deleteContact(Mockito.anyString())).thenReturn(ZERO);
 
-        contactService.createContact(MOCK_CONTACT);
+        try {
+            contactService.deleteContact(CONTACT_NAME);
+        } finally {
+            Mockito.verify(mockRepo).deleteContact(Mockito.anyString());
+        }
     }
 
     @Test
     public void deleteContactSuccess() throws ContactAPIException {
-        when(mockRepo.createContact(MOCK_CONTACT)).thenReturn(ONE);
+        when(mockRepo.deleteContact(CONTACT_NAME)).thenReturn(ONE);
 
-        contactService.createContact(MOCK_CONTACT);
+        contactService.deleteContact(CONTACT_NAME);
 
-        verify(mockRepo).createContact(MOCK_CONTACT);
+        verify(mockRepo).deleteContact(CONTACT_NAME);
     }
 
     @Test(expected = ContactAPIException.class)
     public void updateContactWhenRepoThrowsException() throws ContactAPIException {
         when(mockRepo.updateContact(CONTACT_NAME, MOCK_CONTACT)).thenThrow(ContactAPIException.class);
 
-        contactService.updateContact(CONTACT_NAME, MOCK_CONTACT);
+        try {
+            contactService.updateContact(CONTACT_NAME, MOCK_CONTACT);
+        } finally {
+            Mockito.verify(mockRepo).updateContact(CONTACT_NAME, MOCK_CONTACT);
+        }
     }
 
     @Test(expected = ContactAPIException.class)
     public void updateContactFailWhenReturnZeroValue() throws ContactAPIException {
         when(mockRepo.updateContact(CONTACT_NAME, MOCK_CONTACT)).thenReturn(ZERO);
 
-        contactService.updateContact(CONTACT_NAME, MOCK_CONTACT);
+        try {
+            contactService.updateContact(CONTACT_NAME, MOCK_CONTACT);
+        } finally {
+            Mockito.verify(mockRepo).updateContact(CONTACT_NAME, MOCK_CONTACT);
+        }
     }
 
     @Test
@@ -141,7 +156,11 @@ public class ContactServiceTest {
     public void createContactThrowExceptionForNullValue() throws ContactAPIException {
         when(mockRepo.createContact(MOCK_CONTACT)).thenThrow(ContactAPIException.class);
 
-        contactService.createContact(MOCK_CONTACT);
+        try {
+            contactService.createContact(MOCK_CONTACT);
+        } finally {
+            Mockito.verify(mockRepo).createContact(MOCK_CONTACT);
+        }
     }
 
     @Test
@@ -157,24 +176,33 @@ public class ContactServiceTest {
     public void retrieveContactRepoThrowsException() throws ContactAPIException {
         //when
         when(mockRepo.retrieveContact(CONTACT_NAME)).thenThrow(ContactAPIException.class);
-
-        Set<Contact> contacts = contactService.retrieveContact(CONTACT_NAME);
+        try {
+            Set<Contact> contacts = contactService.retrieveContact(CONTACT_NAME);
+        } finally {
+            Mockito.verify(mockRepo).retrieveContact(CONTACT_NAME);
+        }
     }
 
     @Test(expected = ContactAPIException.class)
     public void retrieveNoContactNull() throws ContactAPIException {
         //when
         when(mockRepo.retrieveContact(CONTACT_NAME)).thenReturn(null);
-
-        Set<Contact> contacts = contactService.retrieveContact(CONTACT_NAME);
+        try {
+            Set<Contact> contacts = contactService.retrieveContact(CONTACT_NAME);
+        } finally {
+            Mockito.verify(mockRepo).retrieveContact(CONTACT_NAME);
+        }
     }
 
     @Test(expected = ContactAPIException.class)
     public void retrieveContactZeroSize() throws ContactAPIException {
         //when
         when(mockRepo.retrieveContact(CONTACT_NAME)).thenReturn(new HashSet<>());
-
-        Set<Contact> contacts = contactService.retrieveContact(CONTACT_NAME);
+        try {
+            Set<Contact> contacts = contactService.retrieveContact(CONTACT_NAME);
+        } finally {
+            Mockito.verify(mockRepo).retrieveContact(CONTACT_NAME);
+        }
     }
 
     @Test
@@ -192,24 +220,5 @@ public class ContactServiceTest {
         verify(mockRepo).retrieveContact(CONTACT_NAME);
     }
 
-    private static Contact createContactStub() {
-        Address address = new Address();
-        address.setCity("Chicago");
-        address.setPincode("60020");
-        address.setState("IL");
-        address.setStreet("Mark Ln");
 
-        Contact contact = new Contact();
-
-        contact.setName("John");
-        contact.setAddress(address);
-        contact.setId(1);
-        contact.setWorkNumber("2242011234");
-        contact.setPersonalNumber("2242011234");
-        contact.setCompany("Google");
-        contact.setEmail("john@gmail.com");
-        contact.setBirthDate(new Date(2000, 12, 13));
-
-        return contact;
-    }
 }

@@ -7,11 +7,14 @@ import java.io.Serializable;
 
 /**
  * Created by Animesh Kumar on 13-04-2018.
- *
+ * <p>
  * Entity object to hold contact's address details such as street location,
  * city, state, pincode
  */
 public class Address implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty(notes = "contact street location", example = "Corey Court")
     private String street;
     @ApiModelProperty(notes = "contact city", example = "Chicago", required = true)
@@ -61,7 +64,7 @@ public class Address implements Serializable {
                 "street='" + street + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
-                ", pincode=" +  pincode+
+                ", pincode=" + pincode +
                 '}';
     }
 }

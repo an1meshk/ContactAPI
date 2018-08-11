@@ -13,7 +13,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
 
 /**
  * Created by Animesh Kumar on 13-04-2018.
- *
+ * <p>
  * Swagger configuration class for generating
  * API specification documentation.
  */
@@ -25,6 +25,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
      * Registers "com.animesh.contactapi" package for
      * scanning endpoint to generate endpoint documentation
      * as per the swagger api annotations.
+     *
      * @return Docket
      */
     @Bean
@@ -39,6 +40,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     /**
      * Registries required resources needed for swagger api
      * to work properly.
+     *
      * @param registry
      */
     @Override

@@ -16,9 +16,7 @@ import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.client.ExpectedCount.once;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withBadRequest;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withNoContent;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.*;
 
 /**
  * Created by Animeesh Kumar on 14-04-2018.
@@ -51,7 +49,7 @@ public class ContactControllerTest {
                         "  \"state\" : \"IL\"\n" +
                         "}", MediaType.APPLICATION_JSON_UTF8));
 
-        Contact contact = restTemplate.getForObject("/contact", Contact.class,"John");
+        Contact contact = restTemplate.getForObject("/contact", Contact.class, "John");
 
         assertTrue(contact != null);
     }
@@ -61,7 +59,7 @@ public class ContactControllerTest {
         server.expect(once(), requestTo("/contact")).andExpect(method(HttpMethod.GET))
                 .andRespond(withBadRequest());
 
-        Contact contact = restTemplate.getForObject("/contact", Contact.class,"John");
+        Contact contact = restTemplate.getForObject("/contact", Contact.class, "John");
 
     }
 
@@ -70,7 +68,7 @@ public class ContactControllerTest {
         server.expect(once(), requestTo("/contact")).andExpect(method(HttpMethod.GET))
                 .andRespond(withNoContent());
 
-        Contact contact = restTemplate.getForObject("/contact", Contact.class,"John");
+        Contact contact = restTemplate.getForObject("/contact", Contact.class, "John");
 
         assertTrue(contact == null);
     }

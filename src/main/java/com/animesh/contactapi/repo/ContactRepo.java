@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  * Created by Animesh Kumar on 14-04-2018.
- *
+ * <p>
  * Repository interface defining the contract for the implementing
  * classes. It declares the methods need to perform Contact API operations.
  */
@@ -15,6 +15,7 @@ public interface ContactRepo {
     /**
      * Creates contact record in the database, throws ContactAPIException
      * for any exception occurred.
+     *
      * @param contact
      * @return result
      * @throws ContactAPIException
@@ -24,6 +25,7 @@ public interface ContactRepo {
     /**
      * Retrieve a contact when contact name of existing record is passed, it returns
      * multiple results in case multiple records are found with the same name.
+     *
      * @param contactName
      * @return Set<Contact>
      * @throws ContactAPIException
@@ -32,6 +34,7 @@ public interface ContactRepo {
 
     /**
      * Updates contact when contact name of existing record is passed.
+     *
      * @param contactName
      * @param contact
      * @return result
@@ -41,6 +44,7 @@ public interface ContactRepo {
 
     /**
      * Deletes contact when contact name of existing record is passed
+     *
      * @param contactName
      * @return result
      * @throws ContactAPIException
@@ -49,6 +53,7 @@ public interface ContactRepo {
 
     /**
      * Search for a record by email or phone number or work phone.
+     *
      * @param contactVal
      * @param identifier
      * @return Set<Contact>
@@ -58,6 +63,7 @@ public interface ContactRepo {
 
     /**
      * Retrieves all records with the same state or city.
+     *
      * @param contactVal
      * @param identifier
      * @return Set<Contact>

@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 /**
  * Created by Animesh Kumar on 14-04-2018.
- *
+ * <p>
  * Data Source configuration class to setup in-memory H2 database
  */
 @Configuration
@@ -20,6 +20,7 @@ public class DataSourceConfig {
      * Creates datasource bean required to create
      * JDBCTemplate bean. On application startup it reads the
      * "schema.sql" and creates CONTACT_INFO table.
+     *
      * @return DataSource
      */
     @Bean
@@ -32,6 +33,7 @@ public class DataSourceConfig {
 
     /**
      * Create contactJdbcTemplate of type JdbcTemplate.
+     *
      * @return JdbcTemplate
      */
     @Bean

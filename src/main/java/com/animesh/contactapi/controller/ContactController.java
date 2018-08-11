@@ -2,6 +2,7 @@ package com.animesh.contactapi.controller;
 
 import com.animesh.contactapi.exception.ContactAPIException;
 import com.animesh.contactapi.service.ContactService;
+import com.animesh.contactapi.util.ContactAPIConstant;
 import com.animesh.contactapi.vo.Contact;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,13 @@ import java.util.Set;
 
 /**
  * Created by Animesh Kumar on 13-04-2018.
- *
+ * <p>
  * Contact API controller class containing definition of different endpoints
  * to perform several operations. Context root is "/contact".
  */
 @RestController
 @RequestMapping(value = "/contact")
-@Api(value="contactapi", description="Contact API performs following operations:\n" +
+@Api(value = "contactapi", description = "Contact API performs following operations:\n" +
         "1. Create a contact record\n" +
         "2. Retrieve a contact record\n" +
         "3. Update a contact record\n" +
@@ -42,7 +43,7 @@ public class ContactController {
             @ApiResponse(code = 401, message = "You are not authorized to perform operation"),
             @ApiResponse(code = 403, message = "The resource you were trying access is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
-        }
+    }
     )
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(produces = "application/json")
@@ -54,12 +55,12 @@ public class ContactController {
     public void createContact(@Valid @RequestBody Contact contact, Errors errors) throws ContactAPIException {
         if (errors.hasErrors()) {
             String fields = "";
-            for(FieldError fieldError: errors.getFieldErrors()){
-                fields += " | "+fieldError.getField();
+            for (FieldError fieldError : errors.getFieldErrors()) {
+                fields += " | " + fieldError.getField();
             }
-            throw new ContactAPIException("Input validation error for: "+fields);
+            throw new ContactAPIException("Input validation error for: " + fields);
         }
-       contactService.createContact(contact);
+        contactService.createContact(contact);
     }
 
     @ApiOperation(value = "Retrieves contact when contact name of existing record is passed")
@@ -69,15 +70,16 @@ public class ContactController {
             }
     )
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value="/{$contactName}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{$contactName}", produces = MediaType.APPLICATION_JSON_VALUE)
     /**
      * Retrieve a contact when contact name of existing record is passed, it returns
      * multiple results in case multiple records are found with the same name.
      * @return Contact
      * @param contactName
      */
-    public Set<Contact> retrieveContact(@PathVariable("$contactName") String contactName) throws ContactAPIException{
-        if(contactName==null) throw new ContactAPIException("search parameter cannot be null");
+    public Set<Contact> retrieveContact(@PathVariable("$contactName") String contactName) throws ContactAPIException {
+        if (contactName == null)
+            throw new ContactAPIException(ContactAPIConstant.ERROR_MSG_SEARCH_PARAM_NULL.toString());
         return contactService.retrieveContact(contactName);
     }
 
@@ -88,23 +90,24 @@ public class ContactController {
             }
     )
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping(value="/{$contactName}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{$contactName}", produces = MediaType.APPLICATION_JSON_VALUE)
     /**
      * Updates contact when contact name of existing record is passed.
      * @param contactName
      * @param contact
      */
     public void updateContact(@PathVariable("$contactName") String contactName,
-                              @Valid @RequestBody Contact contact,Errors errors) throws ContactAPIException{
-        if(contactName==null) throw new ContactAPIException("search parameter cannot be null");
+                              @Valid @RequestBody Contact contact, Errors errors) throws ContactAPIException {
+        if (contactName == null)
+            throw new ContactAPIException(ContactAPIConstant.ERROR_MSG_SEARCH_PARAM_NULL.toString());
         if (errors.hasErrors()) {
             String fields = "";
-            for(FieldError fieldError: errors.getFieldErrors()){
-                fields += " | "+fieldError.getField();
+            for (FieldError fieldError : errors.getFieldErrors()) {
+                fields += " | " + fieldError.getField();
             }
-            throw new ContactAPIException("Input validation error for: "+fields);
+            throw new ContactAPIException("Input validation error for: " + fields);
         }
-        contactService.updateContact(contactName,contact);
+        contactService.updateContact(contactName, contact);
     }
 
     @ApiOperation(value = "Deletes contact when contact name of existing record is passed")
@@ -114,13 +117,14 @@ public class ContactController {
             }
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping(value="/{$contactName}")
+    @DeleteMapping(value = "/{$contactName}")
     /**
      * Deletes contact when contact name of existing record is passed
      * @param contactName
      */
-    public void deleteContact(@PathVariable("$contactName") String contactName) throws ContactAPIException{
-        if(contactName==null) throw new ContactAPIException("search parameter cannot be null");
+    public void deleteContact(@PathVariable("$contactName") String contactName) throws ContactAPIException {
+        if (contactName == null)
+            throw new ContactAPIException(ContactAPIConstant.ERROR_MSG_SEARCH_PARAM_NULL.toString());
         contactService.deleteContact(contactName);
     }
 
@@ -132,7 +136,7 @@ public class ContactController {
             }
     )
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value="/search/{$contactVal}/{$id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search/{$contactVal}/{$id}", produces = MediaType.APPLICATION_JSON_VALUE)
     /**
      * Search for a record by email or phone number or work phone.
      * Email, work phone and personal phone are the allowed values of the identifier.
@@ -141,8 +145,9 @@ public class ContactController {
      * @param identifier
      */
     public Set<Contact> searchByField(@PathVariable("$contactVal") String contactVal,
-                                 @PathVariable("$id") String identifier) throws ContactAPIException{
-        if(contactVal==null || identifier==null) throw new ContactAPIException("search parameter/identifier cannot be null");
+                                      @PathVariable("$id") String identifier) throws ContactAPIException {
+        if (contactVal == null || identifier == null)
+            throw new ContactAPIException("search parameter/identifier cannot be null");
         return contactService.searchById(contactVal, identifier);
     }
 
@@ -154,7 +159,7 @@ public class ContactController {
             }
     )
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value="/searchall/{$contactVal}/{$id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/searchall/{$contactVal}/{$id}", produces = MediaType.APPLICATION_JSON_VALUE)
     /**
      * Retrieves all records with the same state or city. City and State
      * are the allowed values of the identifier.
@@ -163,8 +168,9 @@ public class ContactController {
      * @param identifier
      */
     public Set<Contact> retrieveAllContact(@PathVariable("$contactVal") String contactVal,
-                                           @PathVariable("$id") String identifier) throws ContactAPIException{
-        if(contactVal==null || identifier==null) throw new ContactAPIException("search parameter/identifier cannot be null");
+                                           @PathVariable("$id") String identifier) throws ContactAPIException {
+        if (contactVal == null || identifier == null)
+            throw new ContactAPIException("search parameter/identifier cannot be null");
         return contactService.retrieveAllContacts(contactVal, identifier);
     }
 
