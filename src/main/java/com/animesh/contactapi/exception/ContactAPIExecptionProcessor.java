@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Created by Animesh Kumar on 14-04-2018.
- *
+ * <p>
  * Contact API exception handler class, converts the
  * exception object into generic error message.
  */
@@ -42,7 +42,7 @@ public class ContactAPIExecptionProcessor {
      * @return String
      */
     public String exception(Exception ex) {
-        logger.error("printing exception object: ",ex);
+        logger.error("printing exception object: ", ex);
         return ex.getMessage();
     }
 

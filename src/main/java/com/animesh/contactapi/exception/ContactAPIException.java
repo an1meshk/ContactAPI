@@ -2,7 +2,7 @@ package com.animesh.contactapi.exception;
 
 /**
  * Created by Animesh Kumar on 14-04-2018.
- *
+ * <p>
  * Contact API exception class
  */
 public class ContactAPIException extends Exception {
