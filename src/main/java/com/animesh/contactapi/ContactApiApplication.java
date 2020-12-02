@@ -1,4 +1,4 @@
-package com.animesh.contactapi.application;
+package com.animesh.contactapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
