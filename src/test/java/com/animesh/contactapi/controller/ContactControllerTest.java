@@ -12,6 +12,7 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.client.ExpectedCount.once;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
@@ -51,7 +52,7 @@ public class ContactControllerTest {
 
         Contact contact = restTemplate.getForObject("/contact", Contact.class, "John");
 
-        assertTrue(contact != null);
+        assertNotNull(contact);
     }
 
     @Test(expected = HttpClientErrorException.class)

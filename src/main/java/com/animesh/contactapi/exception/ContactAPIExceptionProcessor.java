@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * exception object into generic error message.
  */
 @ControllerAdvice
-public class ContactAPIExecptionProcessor {
+public class ContactAPIExceptionProcessor {
 
-    private Logger logger = LoggerFactory.getLogger(ContactAPIExecptionProcessor.class);
+    private Logger logger = LoggerFactory.getLogger(ContactAPIExceptionProcessor.class);
 
     @ExceptionHandler
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
